@@ -19,11 +19,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ./requirements.txt
       - name: Train model
-        run: python train_model.py
+        run: |
+          chmod -R a+r data
+          python train_model.py
 
       - name: Evaluate model
         run: python eval_model.py
         
       - uses: iterative/setup-cml@v1
       - name: Attach a comment
-        run: cml-send-comment evaluation_results.txt
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cat evaluation_results.txt >> report.md
+          cml-send-comment report.md
