@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import torch
+import os
 from torch.utils.data import DataLoader
 
 from model import MLP, PlantsDataset, test
@@ -12,7 +13,9 @@ def load_model():
 
 
 def load_dev_dataset(batch_size=64):
-    plant_dev = PlantsDataset('./data/Plant_1_Generation_Data.csv.dev')
+    dirname = os.path.dirname(__file__)
+    fname = os.path.join(dirname, 'data/Plant_1_Generation_Data.csv.dev')
+    plant_dev = PlantsDataset(fname)
     return DataLoader(plant_dev, batch_size=batch_size)
 
 
