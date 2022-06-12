@@ -1,0 +1,27 @@
+name: CML
+
+on:
+  push:
+  
+jobs:
+  train_eval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r .requirements.txt
+      - uses: actions/checkout@v3
+      - name: Train model
+        run: python train_model.py
+
+      - name: Evaluate model
+        run: python eval_model.py
+        
+      - uses: iterative/setup-cml@v1
+      - name: Attach a comment
+        run: cml-send-comment evaluation_results.txt
