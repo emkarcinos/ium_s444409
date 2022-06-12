@@ -12,7 +12,7 @@ def load_model():
 
 
 def load_dev_dataset(batch_size=64):
-    plant_dev = PlantsDataset('./data/Plant_1_Generation_Data.csv.dev')
+    plant_dev = PlantsDataset('Plant_1_Generation_Data.csv.dev')
     return DataLoader(plant_dev, batch_size=batch_size)
 
 
