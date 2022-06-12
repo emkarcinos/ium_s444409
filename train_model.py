@@ -1,4 +1,5 @@
 import argparse
+import os
 
 import numpy as np
 import torch
@@ -28,8 +29,10 @@ if __name__ == "__main__":
 
     print(f"Using {device} device")
 
-    plant_test = PlantsDataset('./data/Plant_1_Generation_Data.csv.test')
-    plant_train = PlantsDataset('./data/Plant_1_Generation_Data.csv.train')
+    dirname = os.path.dirname(__file__)
+
+    plant_test = PlantsDataset(os.path.join(dirname, 'data/Plant_1_Generation_Data.csv.test'))
+    plant_train = PlantsDataset(os.path.join(dirname, 'data/Plant_1_Generation_Data.csv.train'))
 
     input_example = np.array([plant_test.x_train.numpy()[0]])
 
